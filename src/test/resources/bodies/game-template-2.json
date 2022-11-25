@@ -1,0 +1,8 @@
+{
+  "id": #{id},
+  "category": "#{category}",
+  "name": "#{name}",
+  "rating": "#{rating}",
+  "releaseDate": "#{releaseDate}",
+  "reviewScore": #{reviewScore}
+}

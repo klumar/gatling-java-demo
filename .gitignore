@@ -1,0 +1,49 @@
+# UNIX backup files
+*~
+**/*~
+
+# Misc. Eclipse project files
+.classpath
+**/.classpath
+.project
+**/.project
+.settings
+**/.settings/
+.checkstyle
+**/.checkstyle
+*.pmd
+**/*.pmd
+.pydevproject
+**/.pydevproject
+.scala_dependencies
+**/.scala_dependencies
+
+# Misc. Intellij
+*.iml
+**/*.iml
+.idea
+**/.idea
+*.ipr
+**/*.ipr
+*.iws
+**/*.iws
+
+# Maven binary output
+target
+**/target/
+dependency-reduced-pom.xml
+
+# Converter log
+logs
+#Docker compose environment variables
+.env
+
+
+# Kafka tool output
+**/outputFix.json
+
+# Spring boot
+# Excluding default profile so we can use it as local profile and put password into it that will not be pushed to
+# the source control
+**/application-my-local.properties
+**/application-default.properties
