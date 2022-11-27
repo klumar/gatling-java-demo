@@ -12,18 +12,7 @@ import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.core.Simulation;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
 
-import static io.gatling.javaapi.core.CoreDsl.ElFileBody;
-import static io.gatling.javaapi.core.CoreDsl.StringBody;
-import static io.gatling.javaapi.core.CoreDsl.atOnceUsers;
-import static io.gatling.javaapi.core.CoreDsl.bodyString;
-import static io.gatling.javaapi.core.CoreDsl.exec;
-import static io.gatling.javaapi.core.CoreDsl.feed;
-import static io.gatling.javaapi.core.CoreDsl.jsonPath;
-import static io.gatling.javaapi.core.CoreDsl.listFeeder;
-import static io.gatling.javaapi.core.CoreDsl.nothingFor;
-import static io.gatling.javaapi.core.CoreDsl.rampUsers;
-import static io.gatling.javaapi.core.CoreDsl.repeat;
-import static io.gatling.javaapi.core.CoreDsl.scenario;
+import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.http;
 
 /**
@@ -90,7 +79,12 @@ public class VideoGameFullTest extends Simulation {
                                         .during(Duration.ofSeconds(rampTime))
                         )
                         .protocols(httpProtocolBuilder)
-        ).maxDuration(Duration.ofSeconds(testDuration));
+        )
+                .maxDuration(Duration.ofSeconds(testDuration))
+                .assertions(
+                        global().responseTime().max().lt(2),
+                        global().successfulRequests().percent().gt(99.0)
+                );
     }
 
     @Override
@@ -119,11 +113,11 @@ public class VideoGameFullTest extends Simulation {
                         .body(
                                 StringBody(
                                         """
-                                            {
-                                                "username": "admin",
-                                                "password": "admin"
-                                            }
-                                        """
+                                                    {
+                                                        "username": "admin",
+                                                        "password": "admin"
+                                                    }
+                                                """
                                 )
                         )
                         .check(jsonPath("$.token").saveAs("jwtToken"))
